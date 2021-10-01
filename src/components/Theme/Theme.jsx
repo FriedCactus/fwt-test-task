@@ -7,12 +7,16 @@ const themes = {
   dark: {
     mainColor: "#000000",
     secondaryColor: "#ffffff",
-    borderColor: "",
+    borderColor: "#ffffff",
+    placeholderColor: "rgba(255, 255, 255, 0.3)",
+    filtersInputColor: "#FFFFFF",
   },
   light: {
     mainColor: "#ffffff",
     secondaryColor: "#000000",
     borderColor: "rgba(0, 0, 0, 0.3)",
+    placeholderColor: "rgba(0, 0, 0, 0.3)",
+    filtersInputColor: "#EFEFEF",
   },
 };
 

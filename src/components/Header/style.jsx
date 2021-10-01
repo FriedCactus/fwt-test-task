@@ -1,8 +1,13 @@
 import styled from "styled-components";
+import { breakpoints } from "../GlobalStyles";
 
 export const Header = styled.header`
-  padding: 35px 0;
+  padding: 25px 0;
   width: 100%;
+
+  @media (${breakpoints.s}) {
+    padding: 35px 0;
+  }
 `;
 
 export const HeaderRow = styled.div`
@@ -12,16 +17,14 @@ export const HeaderRow = styled.div`
 `;
 
 export const LogoRow = styled.div`
-  width: 64px;
-  height: 64px;
+  flex: 0 0 64px;
 `;
 
 export const Logo = styled.img``;
 
 export const ThemeRow = styled.div`
   cursor: pointer;
-  width: 20px;
-  height: 20px;
+  flex: 0 0 20px;
 `;
 
 export const ThemeIcon = styled.svg.attrs({
@@ -31,4 +34,5 @@ export const ThemeIcon = styled.svg.attrs({
 })`
   fill: ${(props) => props.theme.secondaryColor};
   max-width: 100%;
+  transition: fill 0.3s;
 `;

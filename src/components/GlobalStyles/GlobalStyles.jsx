@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-export const GlobalStyles = createGlobalStyle`
+const GlobalStyles = createGlobalStyle`
     body {
         display: block;
         min-height: 100vh;
@@ -8,7 +8,7 @@ export const GlobalStyles = createGlobalStyle`
 
         background-color: ${(props) => props.theme.mainColor};
         color: ${(props) => props.theme.secondaryColor};
-        transition: all 0.3s ease;
+        transition: all 0.3s;
     }
 
     *,
@@ -23,3 +23,5 @@ export const GlobalStyles = createGlobalStyle`
         max-width: 100%;
     }
 `;
+
+export default GlobalStyles;
