@@ -1,26 +1,18 @@
 import React from "react";
 import { Container } from "../Container";
-import { FiltersInput } from "../FiltersInput";
-import { SelectList, SelectYears } from "../FiltersSelect";
-import * as S from "./style";
+import { Input } from "../Input";
+import { Select } from "../Select";
+import { Years } from "../Years";
 
-const FiltersSection = () => {
+const Filters = () => {
   return (
     <Container>
-      <S.ElementRow>
-        <FiltersInput placeholder="Name" />
-      </S.ElementRow>
-      <S.ElementRow>
-        <SelectList placeholder="Author" />
-      </S.ElementRow>
-      <S.ElementRow>
-        <SelectList placeholder="Location" />
-      </S.ElementRow>
-      <S.ElementRow>
-        <SelectYears isOpen={true} placeholder="Created" />
-      </S.ElementRow>
+      <Input placeholder="Name" />
+      <Select placeholder="Author" isOpen={true} />
+      <Select placeholder="Location" isOpen={false} />
+      <Years placeholder="Created" isOpen={true} />
     </Container>
   );
 };
 
-export default FiltersSection;
+export default Filters;

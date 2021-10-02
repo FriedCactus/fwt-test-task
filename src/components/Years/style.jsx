@@ -1,12 +1,21 @@
 import styled from "styled-components";
 import breakpoints from "../GlobalStyles/breakpoints";
 
-//Select
-
 export const SelectRow = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding: 0 15px;
+  grid-column: span 4;
+  background-color: ${(props) => props.theme.mainColor};
+
+  box-shadow: 0px 0px 0px 1px ${(props) => props.theme.borderColor};
+  border-radius: ${(props) => (props.isOpen ? "8px 8px 0 0" : "8px")};
+
+  @media (${breakpoints.s}) {
+    grid-column: span 3;
+  }
 `;
 
 //Label
@@ -24,10 +33,16 @@ export const LabelRow = styled.div`
 `;
 
 export const LabelText = styled.span`
+  font-size: 0.875rem;
+
   padding-right: 10px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+
+  @media (${breakpoints.s}) {
+    font-size: 0.8125rem;
+  }
 `;
 
 export const LabelIconRow = styled.div`
@@ -49,16 +64,23 @@ export const LabelIcon = styled.svg.attrs({
   transition: fill 0.3s;
 `;
 
-//List Menu
-
 //YearsMenu
 
 export const YearsMenu = styled.div`
-  display: flex;
+  position: absolute;
+  top: 100%;
+  left: 0;
+
+  display: ${(props) => (props.isOpen ? "flex" : "none")};
   align-items: center;
   justify-content: center;
-  padding: 20px 0;
+  padding: 20px 15px;
+  width: 100%;
+  background-color: inherit;
   transition: all 0.3s;
+
+  box-shadow: 0px 0px 0px 1px ${(props) => props.theme.borderColor};
+  border-radius: 0 0 8px 8px;
 
   z-index: 1;
 
@@ -75,8 +97,11 @@ export const YearsInputRow = styled.div`
   flex: 0 1 auto;
   display: flex;
   align-items: center;
-  width: 110px;
+  padding: 15px;
+  max-width: 110px;
+  width: 100%;
   height: 45px;
+
   background-color: ${(props) => props.theme.filtersInputColor};
   border-radius: 8px;
   overflow: hidden;
@@ -85,7 +110,9 @@ export const YearsInputRow = styled.div`
 export const YearsInput = styled.input.attrs({
   type: "number",
 })`
-  padding: 15px;
+  flex: 1 1 auto;
+  width: 0;
+
   outline: none;
   border: none;
   background-color: inherit;
@@ -96,6 +123,10 @@ export const YearsInput = styled.input.attrs({
 
   ::placeholder {
     color: rgba(0, 0, 0, 0.3);
+  }
+
+  @media (${breakpoints.s}) {
+    font-size: 0.8125rem;
   }
 `;
 

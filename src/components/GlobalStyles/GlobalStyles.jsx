@@ -15,12 +15,17 @@ const GlobalStyles = createGlobalStyle`
     *::after,
     *::before {
         margin: 0;
+        padding: 0;
         box-sizing: border-box;
     }
 
     img{
         display: block;
         max-width: 100%;
+    }
+
+    li {
+        list-style: none;
     }
 `;
 
