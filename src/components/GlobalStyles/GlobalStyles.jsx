@@ -8,6 +8,7 @@ const GlobalStyles = createGlobalStyle`
 
         background-color: ${(props) => props.theme.mainColor};
         color: ${(props) => props.theme.secondaryColor};
+        transition: all 0.3s;
     }
 
     *,
