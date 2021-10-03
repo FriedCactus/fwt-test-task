@@ -1,5 +1,5 @@
 import styled from "styled-components";
 
-export const FiltersRow = styled.div`
+export const Filters = styled.div`
   margin-bottom: 45px;
 `;
