@@ -12,12 +12,12 @@ const pageButton = styled.button`
 
   background-color: ${(props) => props.theme.mainColor};
   color: ${(props) => props.theme.secondaryColor};
-  border: 1px solid
-    ${(props) =>
-      props.isDisabled
-        ? props.theme.disabledButtonColor
-        : props.theme.secondaryColor};
+  border: 1px solid ${(props) => props.theme.secondaryColor};
   border-right: none;
+
+  :disabled {
+    border: 1px solid ${(props) => props.theme.disabledButtonColor};
+  }
 
   :first-child {
     border-radius: 8px 0 0 8px;
@@ -25,39 +25,44 @@ const pageButton = styled.button`
 
   :last-child {
     border-radius: 0 8px 8px 0;
-    border-right: 1px solid
-      ${(props) =>
-        props.isDisabled
-          ? props.theme.disabledButtonColor
-          : props.theme.secondaryColor};
+    border-right: 1px solid ${(props) => props.theme.secondaryColor};
+
+    :disabled {
+      border-right: 1px solid ${(props) => props.theme.disabledButtonColor};
+    }
   }
 
-  :hover {
-    background-color: ${(props) =>
-      props.isDisabled ? "" : props.theme.secondaryColor};
-    color: ${(props) => (props.isDisabled ? "" : props.theme.mainColor)};
+  :not(:disabled):hover {
+    background-color: ${(props) => props.theme.secondaryColor};
+    color: ${(props) => props.theme.mainColor};
   }
 `;
 
 const arrowButton = styled(pageButton)`
   svg {
     path {
-      fill: ${(props) =>
-        props.isDisabled
-          ? props.theme.disabledButtonColor
-          : props.theme.secondaryColor};
+      fill: ${(props) => props.theme.secondaryColor};
     }
   }
 
-  :hover {
+  :not(:disabled):hover {
     svg {
       path {
-        fill: ${(props) => (props.isDisabled ? "" : props.theme.mainColor)};
+        fill: ${(props) => props.theme.mainColor};
+      }
+    }
+  }
+
+  :disabled {
+    svg {
+      path {
+        fill: ${(props) => props.theme.disabledButtonColor};
       }
     }
   }
 `;
 
+// Pagination styling
 export const Pagination = styled.div`
   grid-column: span 4;
   display: flex;
@@ -67,8 +72,8 @@ export const Pagination = styled.div`
   }
 `;
 
+// Arrow buttons styling
 export const ArrowButton = styled(arrowButton)``;
-
 export const DoubleArrowButton = styled(arrowButton)``;
 
 export const ArrowButtonIcon = styled.svg.attrs({
@@ -89,4 +94,5 @@ export const DoubleArrowButtonIcon = styled.svg.attrs({
   height: 12.81px;
 `;
 
+// Number button styling
 export const NumberButton = styled(pageButton)``;
