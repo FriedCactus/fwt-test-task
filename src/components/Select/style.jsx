@@ -75,7 +75,7 @@ export const List = styled.ul`
   top: 100%;
   left: 0;
   width: 100%;
-  max-height: 300px;
+  max-height: 400px;
   overflow: hidden;
 
   font-weight: 500;
@@ -86,6 +86,14 @@ export const List = styled.ul`
   background-color: inherit;
 
   z-index: 1;
+
+  @media (${breakpoints.s}) {
+    max-height: 355px;
+  }
+
+  @media (${breakpoints.s}) {
+    max-height: 300px;
+  }
 `;
 
 export const ListItem = styled.li`
