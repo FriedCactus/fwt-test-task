@@ -10,6 +10,7 @@ const themes = {
     borderColor: "#ffffff",
     placeholderColor: "rgba(255, 255, 255, 0.3)",
     filtersInputColor: "#FFFFFF",
+    disabledButtonColor: "rgba(255, 255, 255, 0.3)",
   },
   light: {
     mainColor: "#ffffff",
@@ -17,6 +18,7 @@ const themes = {
     borderColor: "rgba(0, 0, 0, 0.3)",
     placeholderColor: "rgba(0, 0, 0, 0.3)",
     filtersInputColor: "#EFEFEF",
+    disabledButtonColor: "rgba(0, 0, 0, 0.3)",
   },
 };
 

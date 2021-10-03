@@ -2,11 +2,11 @@ import styled from "styled-components";
 import { breakpoints } from "../GlobalStyles";
 
 export const Header = styled.header`
-  padding: 25px 0;
+  margin-bottom: 25px;
   max-width: 100%;
 
   @media (${breakpoints.s}) {
-    padding: 35px 0;
+    margin-bottom: 35px;
   }
 `;
 

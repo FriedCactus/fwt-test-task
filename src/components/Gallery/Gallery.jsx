@@ -1,10 +1,9 @@
 import React from "react";
-import { Container } from "../Container";
 import * as S from "./style";
 
 const Gallery = () => (
   <S.GalleryRow>
-    <Container>
+    <S.GalleryContainer>
       {[...Array(9)].map((item, index) => (
         <S.ImageRow key={index}>
           <S.Image src="/images/painting.png" />
@@ -26,7 +25,7 @@ const Gallery = () => (
           </S.ImageDesc>
         </S.ImageRow>
       ))}
-    </Container>
+    </S.GalleryContainer>
   </S.GalleryRow>
 );
 

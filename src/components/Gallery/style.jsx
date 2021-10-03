@@ -1,13 +1,26 @@
 import styled from "styled-components";
 import { breakpoints } from "../GlobalStyles";
-//import { breakpoints } from "../GlobalStyles";
+import { Container } from "../Container/style";
 
-export const GalleryRow = styled.section``;
+export const GalleryRow = styled.section`
+  margin-bottom: 30px;
+
+  @media (${breakpoints.s}) {
+    margin-bottom: 35px;
+  }
+
+  @media (${breakpoints.m}) {
+    margin-bottom: 40px;
+  }
+`;
+
+export const GalleryContainer = styled(Container)`
+  row-gap: 20px;
+`;
 
 export const ImageRow = styled.div`
   position: relative;
   grid-column: span 4;
-  margin-bottom: 20px;
   overflow: hidden;
 
   max-width: 100%;
