@@ -7,14 +7,14 @@ import * as S from "./style";
 
 const Filters = () => {
   return (
-    <S.FiltersRow>
+    <S.Filters>
       <Container>
         <Input placeholder="Name" />
         <Select placeholder="Author" isOpen={false} />
         <Select placeholder="Location" isOpen={false} />
         <Years placeholder="Created" isOpen={false} />
       </Container>
-    </S.FiltersRow>
+    </S.Filters>
   );
 };
 
