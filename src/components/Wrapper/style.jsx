@@ -5,16 +5,19 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 20px;
   margin: 0 auto;
-  max-width: 1120px;
+  max-width: 280px;
   min-height: 100vh;
 
   @media (${breakpoints.s}) {
-    padding: 0 34px;
+    max-width: 700px;
   }
 
   @media (${breakpoints.m}) {
-    padding: 0 42px;
+    max-width: 940px;
+  }
+
+  @media (${breakpoints.l}) {
+    max-width: 1120px;
   }
 `;

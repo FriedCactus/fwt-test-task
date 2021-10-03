@@ -1,7 +1,9 @@
 import React from "react";
-import * as S from "./style";
+import PropTypes from "prop-types";
 import SimpleBar from "simplebar-react";
 import "./Simplebar.css";
+
+import * as S from "./style";
 
 const Select = ({ placeholder, isOpen }) => {
   return (
@@ -26,6 +28,11 @@ const Select = ({ placeholder, isOpen }) => {
       )}
     </S.SelectRow>
   );
+};
+
+Select.propTypes = {
+  placeholder: PropTypes.string,
+  isOpen: PropTypes.bool,
 };
 
 export default Select;

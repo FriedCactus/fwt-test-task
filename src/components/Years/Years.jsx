@@ -1,5 +1,6 @@
 import React from "react";
 import * as S from "./style";
+import PropTypes from "prop-types";
 
 const Years = ({ placeholder, isOpen }) => {
   return (
@@ -26,6 +27,11 @@ const Years = ({ placeholder, isOpen }) => {
       )}
     </S.SelectRow>
   );
+};
+
+Years.propTypes = {
+  placeholder: PropTypes.string,
+  isOpen: PropTypes.bool,
 };
 
 export default Years;
