@@ -3,28 +3,27 @@ import { breakpoints } from "../GlobalStyles";
 
 export const Header = styled.header`
   padding: 25px 0;
-  width: 100%;
+  max-width: 100%;
 
   @media (${breakpoints.s}) {
     padding: 35px 0;
   }
 `;
 
-export const HeaderRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
 export const LogoRow = styled.div`
-  flex: 0 0 64px;
+  grid-column: span 2;
+  width: 64px;
+  height: 64px;
 `;
 
 export const Logo = styled.img``;
 
 export const ThemeRow = styled.div`
   cursor: pointer;
-  flex: 0 0 20px;
+  grid-column: -2;
+  justify-self: end;
+  width: 20px;
+  height: 20px;
 `;
 
 export const ThemeIcon = styled.svg.attrs({

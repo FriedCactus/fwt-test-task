@@ -3,6 +3,7 @@ import { breakpoints } from "../GlobalStyles";
 
 export const Container = styled.div`
   display: grid;
+  align-items: center;
   grid-template-columns: repeat(4, minmax(auto, 55px));
   column-gap: 20px;
 
