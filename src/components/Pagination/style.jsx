@@ -32,9 +32,11 @@ const pageButton = styled.button`
     }
   }
 
-  :not(:disabled):hover {
-    background-color: ${(props) => props.theme.secondaryColor};
-    color: ${(props) => props.theme.mainColor};
+  @media (${breakpoints.m}) {
+    :not(:disabled):hover {
+      background-color: ${(props) => props.theme.secondaryColor};
+      color: ${(props) => props.theme.mainColor};
+    }
   }
 `;
 
@@ -45,10 +47,12 @@ const arrowButton = styled(pageButton)`
     }
   }
 
-  :not(:disabled):hover {
-    svg {
-      path {
-        fill: ${(props) => props.theme.mainColor};
+  @media (${breakpoints.m}) {
+    :not(:disabled):hover {
+      svg {
+        path {
+          fill: ${(props) => props.theme.mainColor};
+        }
       }
     }
   }

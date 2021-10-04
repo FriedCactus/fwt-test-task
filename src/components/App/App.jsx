@@ -1,4 +1,3 @@
-import { observer } from "mobx-react-lite";
 import React from "react";
 import { Filters } from "../Filters";
 import { Gallery } from "../Gallery";
@@ -6,7 +5,7 @@ import { Header } from "../Header";
 import { Pagination } from "../Pagination";
 import { Wrapper } from "../Wrapper";
 
-const App = observer(() => {
+const App = () => {
   return (
     <Wrapper>
       <Header />
@@ -15,6 +14,6 @@ const App = observer(() => {
       <Pagination />
     </Wrapper>
   );
-});
+};
 
 export default App;

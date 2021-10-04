@@ -109,6 +109,7 @@ export const YearsInputRow = styled.div`
 
 export const YearsInput = styled.input.attrs({
   type: "number",
+  min: 0,
 })`
   flex: 1 1 auto;
   width: 0;
