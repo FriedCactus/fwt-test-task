@@ -1,9 +1,13 @@
-import { makeAutoObservable, toJS } from "mobx";
+import { makeAutoObservable } from "mobx";
 import * as api from "../utils/api";
 
 class GalleryStore {
   //Цвет темы
   theme = "light";
+
+  //Картины
+  paintings = [];
+
   //Фильтры
   filters = {
     name: {
@@ -29,8 +33,12 @@ class GalleryStore {
     },
   };
 
+  //Активная страница галлереи
+  page = 1;
   //Количество картин на странице
-  picturesOnPage = "";
+  paintingsOnPage = "";
+  //Общее количество страниц
+  pagesCount = "";
 
   constructor() {
     makeAutoObservable(this);
@@ -43,9 +51,22 @@ class GalleryStore {
     this.theme = value;
   }
 
+  setPaintings(data) {
+    this.paintings = data;
+  }
+
+  //Установка активной страницы
+  setPage(number) {
+    this.page = number;
+  }
+
   //Установка количества картин на странице
-  setPicturesOnPage(number) {
-    this.picturesOnPage = number;
+  setPaintingsOnPage(number) {
+    this.paintingsOnPage = number;
+  }
+
+  setPagesCount(number) {
+    this.pagesCount = number;
   }
 
   //Установка значения фильтра
@@ -64,15 +85,15 @@ class GalleryStore {
   }
 
   //Получение количества картин на странице
-  getPicturesOnPage() {
+  getPaintingsOnPage() {
     const windowWidth = window.innerWidth;
 
     if (windowWidth < 768) {
-      this.setPicturesOnPage(6);
+      this.setPaintingsOnPage(6);
     } else if (windowWidth >= 768 && windowWidth < 1024) {
-      this.setPicturesOnPage(8);
+      this.setPaintingsOnPage(8);
     } else {
-      this.setPicturesOnPage(9);
+      this.setPaintingsOnPage(9);
     }
   }
 
@@ -80,16 +101,18 @@ class GalleryStore {
   async getAuthors() {
     const authors = await api.fetchAuthors();
     this.setFiltersData("author", authors);
-
-    console.log(toJS(this.filters.author.data));
   }
 
   //Получение элементов списка мест(location)
   async getLocations() {
     const locations = await api.fetchLocations();
     this.setFiltersData("location", locations);
+  }
 
-    console.log(toJS(this.filters.location.data));
+  //Получение списка картин
+  async getPaintings() {
+    const paintings = await api.fetchPaintings(this.page, this.paintingsOnPage);
+    this.setPaintings(paintings);
   }
 }
 
