@@ -4,6 +4,7 @@ import { Container } from "../Container/style";
 
 export const GalleryRow = styled.section`
   margin-bottom: 30px;
+  padding-top: 45px;
 
   @media (${breakpoints.s}) {
     margin-bottom: 35px;

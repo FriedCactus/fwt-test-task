@@ -1,14 +1,22 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { GalleryContext } from "../../context";
 import * as S from "./style";
 
 const Gallery = observer(() => {
   const store = useContext(GalleryContext);
+  const { page } = useParams();
   const API = "https://test-front.framework.team";
 
   useEffect(() => {
+    //Установка страницы при несовпадении
+    if (store.page != page) {
+      store.setPage(Number(page));
+    }
+
     store.getPaintingsOnPage();
+    store.getPagesCount();
     store.getPaintings();
   }, [store]);
 
@@ -18,7 +26,7 @@ const Gallery = observer(() => {
   };
 
   return (
-    <S.GalleryRow>
+    <S.GalleryRow id="gallery">
       <S.GalleryContainer>
         {store.paintings &&
           store.paintings.map((item) => (

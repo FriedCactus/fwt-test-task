@@ -1,36 +1,20 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { breakpoints } from "../GlobalStyles";
 
-// Template buttons
+// заготовки кнопок
 const pageButton = styled.button`
-  cursor: pointer;
+  cursor: inherit;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 41px;
-  height: 41px;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 0;
 
   background-color: ${(props) => props.theme.mainColor};
   color: ${(props) => props.theme.secondaryColor};
-  border: 1px solid ${(props) => props.theme.secondaryColor};
-  border-right: none;
-
-  :disabled {
-    border: 1px solid ${(props) => props.theme.disabledButtonColor};
-  }
-
-  :first-child {
-    border-radius: 8px 0 0 8px;
-  }
-
-  :last-child {
-    border-radius: 0 8px 8px 0;
-    border-right: 1px solid ${(props) => props.theme.secondaryColor};
-
-    :disabled {
-      border-right: 1px solid ${(props) => props.theme.disabledButtonColor};
-    }
-  }
 
   @media (${breakpoints.m}) {
     :not(:disabled):hover {
@@ -47,6 +31,14 @@ const arrowButton = styled(pageButton)`
     }
   }
 
+  :disabled {
+    svg {
+      path {
+        fill: ${(props) => props.theme.disabledButtonColor};
+      }
+    }
+  }
+
   @media (${breakpoints.m}) {
     :not(:disabled):hover {
       svg {
@@ -56,17 +48,9 @@ const arrowButton = styled(pageButton)`
       }
     }
   }
-
-  :disabled {
-    svg {
-      path {
-        fill: ${(props) => props.theme.disabledButtonColor};
-      }
-    }
-  }
 `;
 
-// Pagination styling
+// Пагинация
 export const Pagination = styled.div`
   grid-column: span 4;
   display: flex;
@@ -76,7 +60,38 @@ export const Pagination = styled.div`
   }
 `;
 
-// Arrow buttons styling
+// Линк
+export const StyledLink = styled(Link)`
+  cursor: ${(props) => (props.disabled ? "auto" : "pointer")};
+  overflow: hidden;
+  text-decoration: none;
+  width: 41px;
+  height: 41px;
+
+  border: 1px solid
+    ${(props) =>
+      props.disabled
+        ? props.theme.disabledButtonColor
+        : props.theme.secondaryColor};
+  border-right: none;
+  z-index: 1;
+
+  :first-child {
+    border-radius: 8px 0 0 8px;
+  }
+
+  :last-child {
+    border-radius: 0 8px 8px 0;
+
+    border-right: 1px solid
+      ${(props) =>
+        props.disabled
+          ? props.theme.disabledButtonColor
+          : props.theme.secondaryColor};
+  }
+`;
+
+// Кнопки-стрелки
 export const ArrowButton = styled(arrowButton)``;
 export const DoubleArrowButton = styled(arrowButton)``;
 
@@ -98,5 +113,9 @@ export const DoubleArrowButtonIcon = styled.svg.attrs({
   height: 12.81px;
 `;
 
-// Number button styling
-export const NumberButton = styled(pageButton)``;
+// Кнопки страниц
+export const NumberButton = styled(pageButton)`
+  background-color: ${(props) =>
+    props.isActive ? props.theme.secondaryColor : ""};
+  color: ${(props) => (props.isActive ? props.theme.mainColor : "")};
+`;

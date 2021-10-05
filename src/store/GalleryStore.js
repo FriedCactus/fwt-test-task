@@ -2,6 +2,11 @@ import { makeAutoObservable } from "mobx";
 import * as api from "../utils/api";
 
 class GalleryStore {
+  constructor() {
+    makeAutoObservable(this);
+  }
+
+  ////////////////////////Переменные////////////////////////
   //Цвет темы
   theme = "light";
 
@@ -36,16 +41,11 @@ class GalleryStore {
   //Активная страница галлереи
   page = 1;
   //Количество картин на странице
-  paintingsOnPage = "";
+  paintingsOnPage = 0;
   //Общее количество страниц
-  pagesCount = "";
+  pagesCount = 0;
 
-  constructor() {
-    makeAutoObservable(this);
-  }
-
-  //Сеттеры
-
+  ////////////////////////Сеттеры////////////////////////
   //Установка темы
   setTheme(value) {
     this.theme = value;
@@ -65,6 +65,7 @@ class GalleryStore {
     this.paintingsOnPage = number;
   }
 
+  //Установка общего количества страниц
   setPagesCount(number) {
     this.pagesCount = number;
   }
@@ -84,6 +85,19 @@ class GalleryStore {
     this.filters[filter].isOpen = value;
   }
 
+  ////////////////////////Методы////////////////////////
+  //Получение элементов списка авторов(author)
+  async getAuthors() {
+    const authors = await api.fetchAuthors();
+    this.setFiltersData("author", authors);
+  }
+
+  //Получение элементов списка мест(location)
+  async getLocations() {
+    const locations = await api.fetchLocations();
+    this.setFiltersData("location", locations);
+  }
+
   //Получение количества картин на странице
   getPaintingsOnPage() {
     const windowWidth = window.innerWidth;
@@ -97,16 +111,11 @@ class GalleryStore {
     }
   }
 
-  //Получение элементов списка авторов(author)
-  async getAuthors() {
-    const authors = await api.fetchAuthors();
-    this.setFiltersData("author", authors);
-  }
-
-  //Получение элементов списка мест(location)
-  async getLocations() {
-    const locations = await api.fetchLocations();
-    this.setFiltersData("location", locations);
+  //Получение общего количества страниц
+  async getPagesCount() {
+    const data = await api.fetchPaintings("", "");
+    const pagesCount = Math.ceil(data.length / this.paintingsOnPage);
+    this.setPagesCount(pagesCount);
   }
 
   //Получение списка картин
