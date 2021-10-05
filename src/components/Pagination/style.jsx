@@ -15,6 +15,8 @@ export const Pagination = styled.div`
 // Линк
 export const StyledLink = styled(Link)`
   cursor: ${(props) => (props.disabled ? "auto" : "pointer")};
+  text-decoration: none;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,7 +25,8 @@ export const StyledLink = styled(Link)`
   border: none;
   border-radius: 0;
 
-  text-decoration: none;
+  background-color: ${(props) => props.theme.mainColor};
+  color: ${(props) => props.theme.secondaryColor};
 
   border: 1px solid
     ${(props) =>
