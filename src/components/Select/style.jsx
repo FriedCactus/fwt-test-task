@@ -100,7 +100,10 @@ export const ListItem = styled.li`
   display: flex;
   align-items: center;
   padding: 0 30px;
+  width: 100%;
   height: 40px;
+
+  overflow: hidden;
 
   :hover {
     background-color: ${(props) => props.theme.secondaryColor};
@@ -114,4 +117,10 @@ export const ListItem = styled.li`
   @media (${breakpoints.s}) {
     padding: 0 22px;
   }
+`;
+
+export const ListText = styled.span`
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `;

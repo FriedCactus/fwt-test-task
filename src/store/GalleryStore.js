@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import * as api from "../utils/api";
 
 class GalleryStore {
@@ -44,6 +44,8 @@ class GalleryStore {
   paintingsOnPage = 0;
   //Общее количество страниц
   pagesCount = 0;
+  //Страницы для вывода в пагинации
+  slicedPages = [];
 
   ////////////////////////Сеттеры////////////////////////
   //Установка темы
@@ -68,6 +70,11 @@ class GalleryStore {
   //Установка общего количества страниц
   setPagesCount(number) {
     this.pagesCount = number;
+  }
+
+  //Установка страниц для пагинации
+  setSlicedPages(arr) {
+    this.slicedPages = arr;
   }
 
   //Установка значения фильтра
@@ -103,25 +110,41 @@ class GalleryStore {
     const windowWidth = window.innerWidth;
 
     if (windowWidth < 768) {
-      this.setPaintingsOnPage(6);
+      runInAction(() => {
+        this.setPaintingsOnPage(6);
+      });
     } else if (windowWidth >= 768 && windowWidth < 1024) {
-      this.setPaintingsOnPage(8);
+      runInAction(() => {
+        this.setPaintingsOnPage(8);
+      });
     } else {
-      this.setPaintingsOnPage(9);
+      runInAction(() => {
+        this.setPaintingsOnPage(9);
+      });
     }
   }
 
   //Получение общего количества страниц
   async getPagesCount() {
-    const data = await api.fetchPaintings("", "");
+    const data = await api.fetchPaintings("", "", this.filters.name.value);
     const pagesCount = Math.ceil(data.length / this.paintingsOnPage);
-    this.setPagesCount(pagesCount);
+
+    runInAction(() => {
+      this.setPagesCount(pagesCount);
+    });
   }
 
   //Получение списка картин
   async getPaintings() {
-    const paintings = await api.fetchPaintings(this.page, this.paintingsOnPage);
-    this.setPaintings(paintings);
+    const paintings = await api.fetchPaintings(
+      this.page,
+      this.paintingsOnPage,
+      this.filters.name.value
+    );
+
+    runInAction(() => {
+      this.setPaintings(paintings);
+    });
   }
 }
 

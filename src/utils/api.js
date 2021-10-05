@@ -1,16 +1,18 @@
+export const BASE_URL = "https://test-front.framework.team";
+
 export const fetchAuthors = async () => {
-  const data = await fetch("https://test-front.framework.team/authors");
+  const data = await fetch(`${BASE_URL}/authors`);
 
   return await data.json();
 };
 
 export const fetchLocations = async () => {
-  const data = await fetch("https://test-front.framework.team/locations");
+  const data = await fetch(`${BASE_URL}/locations`);
 
   return await data.json();
 };
 
-export const fetchPaintings = async (page, perPage) => {
+export const fetchPaintings = async (page, perPage, search) => {
   let filterString = "";
   if (page) {
     filterString += `_page=${page}`;
@@ -20,9 +22,11 @@ export const fetchPaintings = async (page, perPage) => {
     filterString += `&_limit=${perPage}`;
   }
 
-  const data = await fetch(
-    `https://test-front.framework.team/paintings?${filterString}`
-  );
+  if (search) {
+    filterString += `&q=${search}`;
+  }
+
+  const data = await fetch(`${BASE_URL}/paintings?${filterString}`);
 
   return await data.json();
 };

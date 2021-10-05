@@ -2,12 +2,12 @@ import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { GalleryContext } from "../../context";
+import { BASE_URL } from "../../utils/api";
 import * as S from "./style";
 
 const Gallery = observer(() => {
   const store = useContext(GalleryContext);
   const { page } = useParams();
-  const API = "https://test-front.framework.team";
 
   useEffect(() => {
     //Установка страницы при несовпадении
@@ -26,12 +26,12 @@ const Gallery = observer(() => {
   };
 
   return (
-    <S.GalleryRow id="gallery">
+    <S.GalleryRow>
       <S.GalleryContainer>
         {store.paintings &&
           store.paintings.map((item) => (
             <S.ImageRow key={item.id}>
-              <S.Image src={API + item.imageUrl} />
+              <S.Image src={BASE_URL + item.imageUrl} />
               <S.ImageDesc>
                 <S.ImageTitle>{item.name}</S.ImageTitle>
 

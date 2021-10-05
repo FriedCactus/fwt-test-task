@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import usePaginationSlice from "../../hooks/usePagintaionSlice";
 import { observer } from "mobx-react-lite";
 
@@ -10,9 +10,9 @@ import { GalleryContext } from "../../context";
 
 const Pagination = observer(() => {
   const store = useContext(GalleryContext);
-  const [pages, setPages] = useState(
-    usePaginationSlice(store.page, store.pagesCount)
-  );
+  useEffect(() => {
+    store.setSlicedPages(usePaginationSlice(store.page, store.pagesCount));
+  }, [store]);
 
   const handleClick = (e, page) => {
     if (page === store.page || page <= 0 || page > store.pagesCount) {
@@ -20,12 +20,13 @@ const Pagination = observer(() => {
       return;
     }
 
-    document.getElementById("gallery").scrollIntoView({
+    window.scrollTo({
+      top: 0,
       behavior: "smooth",
     });
 
     store.setPage(page);
-    setPages(usePaginationSlice(store.page, store.pagesCount));
+    store.setSlicedPages(usePaginationSlice(store.page, store.pagesCount));
 
     store.getPaintings();
   };
@@ -56,7 +57,7 @@ const Pagination = observer(() => {
           </S.ArrowButton>
         </S.StyledLink>
 
-        {pages.map((item, index) => (
+        {store.slicedPages.map((item, index) => (
           <S.StyledLink
             key={index}
             onClick={(e) => handleClick(e, item)}

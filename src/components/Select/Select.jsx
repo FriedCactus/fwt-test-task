@@ -55,7 +55,7 @@ const Select = observer(({ placeholder, filter, options, getFunc, isOpen }) => {
                 key={item.id}
                 onClick={() => handleListClick(item[options])}
               >
-                {item[options]}
+                <S.ListText>{item[options]}</S.ListText>
               </S.ListItem>
             ))}
           </SimpleBar>

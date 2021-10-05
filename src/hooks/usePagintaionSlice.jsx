@@ -3,8 +3,12 @@ import PropTypes from "prop-types";
 const usePaginationSlice = (current, amount) => {
   let arr = [];
 
-  if (amount <= 3 || current === 1) {
-    for (let i = 1; i <= 3; i++) {
+  if (amount <= 3) {
+    for (let i = 1; i <= amount; i++) {
+      arr.push(i);
+    }
+  } else if (current === 1) {
+    for (let i = 1; i <= current + 2; i++) {
       arr.push(i);
     }
   } else if (amount - current <= 1) {
