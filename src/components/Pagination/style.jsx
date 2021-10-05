@@ -2,54 +2,6 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { breakpoints } from "../GlobalStyles";
 
-// заготовки кнопок
-const pageButton = styled.button`
-  cursor: inherit;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  border: none;
-  border-radius: 0;
-
-  background-color: ${(props) => props.theme.mainColor};
-  color: ${(props) => props.theme.secondaryColor};
-
-  @media (${breakpoints.m}) {
-    :not(:disabled):hover {
-      background-color: ${(props) => props.theme.secondaryColor};
-      color: ${(props) => props.theme.mainColor};
-    }
-  }
-`;
-
-const arrowButton = styled(pageButton)`
-  svg {
-    path {
-      fill: ${(props) => props.theme.secondaryColor};
-    }
-  }
-
-  :disabled {
-    svg {
-      path {
-        fill: ${(props) => props.theme.disabledButtonColor};
-      }
-    }
-  }
-
-  @media (${breakpoints.m}) {
-    :not(:disabled):hover {
-      svg {
-        path {
-          fill: ${(props) => props.theme.mainColor};
-        }
-      }
-    }
-  }
-`;
-
 // Пагинация
 export const Pagination = styled.div`
   grid-column: span 4;
@@ -63,10 +15,15 @@ export const Pagination = styled.div`
 // Линк
 export const StyledLink = styled(Link)`
   cursor: ${(props) => (props.disabled ? "auto" : "pointer")};
-  overflow: hidden;
-  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 41px;
   height: 41px;
+  border: none;
+  border-radius: 0;
+
+  text-decoration: none;
 
   border: 1px solid
     ${(props) =>
@@ -89,11 +46,38 @@ export const StyledLink = styled(Link)`
           ? props.theme.disabledButtonColor
           : props.theme.secondaryColor};
   }
+
+  @media (${breakpoints.l}) {
+    :hover {
+      background-color: ${(props) =>
+        props.disabled ? "" : props.theme.secondaryColor};
+      color: ${(props) => (props.disabled ? "" : props.theme.mainColor)};
+    }
+  }
+`;
+
+export const ArrowLink = styled(StyledLink)`
+  svg {
+    path {
+      fill: ${(props) =>
+        props.disabled
+          ? props.theme.disabledButtonColor
+          : props.theme.secondaryColor};
+    }
+  }
+
+  @media (${breakpoints.l}) {
+    :hover {
+      svg {
+        path {
+          fill: ${(props) => (props.disabled ? "" : props.theme.mainColor)};
+        }
+      }
+    }
+  }
 `;
 
 // Кнопки-стрелки
-export const ArrowButton = styled(arrowButton)``;
-export const DoubleArrowButton = styled(arrowButton)``;
 
 export const ArrowButtonIcon = styled.svg.attrs({
   viewBox: "0 0 9 13",
@@ -114,8 +98,8 @@ export const DoubleArrowButtonIcon = styled.svg.attrs({
 `;
 
 // Кнопки страниц
-export const NumberButton = styled(pageButton)`
+export const NumberLink = styled(StyledLink)`
   background-color: ${(props) =>
-    props.isActive ? props.theme.secondaryColor : ""};
-  color: ${(props) => (props.isActive ? props.theme.mainColor : "")};
+    props.active ? props.theme.secondaryColor : ""};
+  color: ${(props) => (props.active ? props.theme.mainColor : "")};
 `;

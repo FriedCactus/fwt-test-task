@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import { GalleryContext } from "../../context";
 import { Filters } from "../Filters";
 import { Gallery } from "../Gallery";
@@ -20,7 +20,7 @@ const App = observer(() => {
           <Gallery />
         </Route>
         <Route exact path="/">
-          <Redirect to="/page=1" />
+          <Gallery />
         </Route>
       </Switch>
       {!!store.paintings.length && <Pagination />}

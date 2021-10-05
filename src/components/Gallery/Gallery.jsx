@@ -11,7 +11,7 @@ const Gallery = observer(() => {
 
   useEffect(() => {
     //Установка страницы при несовпадении
-    if (store.page != page) {
+    if (page && store.page != page) {
       store.setPage(Number(page));
     }
 
