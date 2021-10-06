@@ -20,11 +20,8 @@ export const fetchLocations = async () => {
   }
 };
 
-export const fetchPaintings = async (page, perPage, ...filters) => {
+export const fetchPaintings = async (page, perPage, filters) => {
   let filterString = "";
-
-  let filtersObj = filters[0];
-  let filtersKeys;
 
   if (page) {
     filterString += `_page=${page}`;
@@ -34,15 +31,11 @@ export const fetchPaintings = async (page, perPage, ...filters) => {
     filterString += `&_limit=${perPage}`;
   }
 
-  if (filters.length) {
-    filtersKeys = Object.keys(filtersObj);
-
-    filtersKeys.forEach((key) => {
-      if (filtersObj[key].value && filtersObj[key].querry) {
-        filterString += `&${filtersObj[key].querry}=${filtersObj[key].value}`;
-      }
-    });
-  }
+  Object.keys(filters).forEach((key) => {
+    if (filters[key].querry && filters[key].value) {
+      filterString += `&${filters[key].querry}=${filters[key].value}`;
+    }
+  });
 
   try {
     const data = await fetch(`${BASE_URL}/paintings?${filterString}`);
