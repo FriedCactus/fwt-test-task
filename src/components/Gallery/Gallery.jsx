@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { GalleryContext } from "../../context";
 
 import { BASE_URL } from "../../utils/api";
@@ -10,10 +10,12 @@ import * as S from "./style";
 
 const Gallery = observer(() => {
   const store = useContext(GalleryContext);
-  const { page } = useParams();
+  const location = useLocation();
 
   useEffect(() => {
     //Установка страницы из адресной строки при несовпадении
+    const page = new URLSearchParams(location.search).get("page");
+
     if (page && store.page != page) {
       store.setPage(Number(page));
     }

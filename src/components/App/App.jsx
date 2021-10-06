@@ -1,6 +1,5 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
 import { GalleryContext } from "../../context";
 import { Filters } from "../Filters";
 import { Gallery } from "../Gallery";
@@ -15,14 +14,7 @@ const App = observer(() => {
     <Wrapper>
       <Header />
       <Filters />
-      <Switch>
-        <Route path="/fwt-test-task/page=:page">
-          <Gallery />
-        </Route>
-        <Route exact path="/fwt-test-task">
-          <Redirect to="/fwt-test-task/page=1" />
-        </Route>
-      </Switch>
+      <Gallery />
       {store.pagesCount > 1 && <Pagination />}
     </Wrapper>
   );

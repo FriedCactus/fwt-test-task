@@ -9,9 +9,11 @@ import { Container } from "../Container";
 import * as S from "./style";
 
 import { GalleryContext } from "../../context";
+import { useLocation } from "react-router-dom";
 
 const Pagination = observer(() => {
   const store = useContext(GalleryContext);
+  const location = useLocation();
 
   useEffect(() => {
     //Первичная инициализация массива страниц
@@ -35,6 +37,10 @@ const Pagination = observer(() => {
     store.getPaintings();
   };
 
+  const getPageNumber = () => {
+    return Number(new URLSearchParams(location.search).get("page"));
+  };
+
   return (
     <Container>
       <S.Pagination>
@@ -44,8 +50,13 @@ const Pagination = observer(() => {
           <S.NumberButton
             key={index}
             onClick={(e) => handleClick(e, item)}
-            to={"/fwt-test-task/page=" + item}
+            to={"/fwt-test-task?page=" + item}
             activeClassName="active"
+            isActive={() => {
+              const page = getPageNumber();
+
+              return (item === 1 && !page) || item === page;
+            }}
           >
             {item}
           </S.NumberButton>

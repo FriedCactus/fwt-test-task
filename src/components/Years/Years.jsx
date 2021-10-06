@@ -38,7 +38,7 @@ const Years = observer(({ placeholder, from, before }) => {
   const handleKeyPress = (e) => {
     if (e.key !== "Enter") return;
 
-    history.push("/fwt-test-task/page=1");
+    history.push("/fwt-test-task?page=1");
     setIsOpen(false);
 
     store.fullGalleryUpdate();
