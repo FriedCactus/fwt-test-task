@@ -133,12 +133,13 @@ class GalleryStore {
       "",
       this.filters.name.value,
       this.filters.author.value,
-      this.filters.location.value
+      this.filters.location.value,
+      this.filters.created.value.from,
+      this.filters.created.value.before
     );
     const pagesCount = Math.ceil(data.length / this.paintingsOnPage);
 
     runInAction(() => {
-      console.log(pagesCount);
       this.setPagesCount(pagesCount);
     });
   }
@@ -150,7 +151,9 @@ class GalleryStore {
       this.paintingsOnPage,
       this.filters.name.value,
       this.filters.author.value,
-      this.filters.location.value
+      this.filters.location.value,
+      this.filters.created.value.from,
+      this.filters.created.value.before
     );
 
     runInAction(() => {

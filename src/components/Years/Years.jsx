@@ -1,6 +1,8 @@
 import React, { useContext, useRef } from "react";
 import PropTypes from "prop-types";
 import { observer } from "mobx-react-lite";
+import { useHistory } from "react-router-dom";
+
 import { GalleryContext } from "../../context";
 
 import * as S from "./style";
@@ -8,6 +10,7 @@ import useClickOutside from "../../hooks/useClickOutside";
 
 const Years = observer(({ placeholder, filter, isOpen }) => {
   const store = useContext(GalleryContext);
+  const history = useHistory();
 
   //Закрытие по клику снаружи
   const ref = useRef(null);
@@ -28,6 +31,13 @@ const Years = observer(({ placeholder, filter, isOpen }) => {
   const handleChange = (e, field) => {
     const value = { ...store.filters[filter].value, [field]: e.target.value };
     store.setFilters(filter, value);
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key !== "Enter") return;
+
+    history.push("/page=1");
+    store.fullGalleryUpdate();
   };
 
   return (
@@ -54,6 +64,7 @@ const Years = observer(({ placeholder, filter, isOpen }) => {
               placeholder="from"
               value={store.filters[filter].value.from}
               onChange={(e) => handleChange(e, "from")}
+              onKeyPress={(e) => handleKeyPress(e)}
             />
           </S.YearsInputRow>
           <S.YearsMenuDash />
@@ -62,6 +73,7 @@ const Years = observer(({ placeholder, filter, isOpen }) => {
               placeholder="before"
               value={store.filters[filter].value.before}
               onChange={(e) => handleChange(e, "before")}
+              onKeyPress={(e) => handleKeyPress(e)}
             />
           </S.YearsInputRow>
         </S.YearsMenu>

@@ -17,7 +17,9 @@ export const fetchPaintings = async (
   perPage,
   search,
   author,
-  location
+  location,
+  from,
+  before
 ) => {
   let filterString = "";
   if (page) {
@@ -38,6 +40,14 @@ export const fetchPaintings = async (
 
   if (location) {
     filterString += `&locationId=${location}`;
+  }
+
+  if (from) {
+    filterString += `&created_gte=${from}`;
+  }
+
+  if (before) {
+    filterString += `&created_lte=${before}`;
   }
 
   const data = await fetch(`${BASE_URL}/paintings?${filterString}`);
