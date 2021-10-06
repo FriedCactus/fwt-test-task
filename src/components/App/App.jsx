@@ -19,7 +19,7 @@ const App = observer(() => {
         <Route path="/fwt-test-task/page=:page">
           <Gallery />
         </Route>
-        <Route exact path="/">
+        <Route exact path="/fwt-test-task">
           <Redirect to="/fwt-test-task/page=1" />
         </Route>
       </Switch>
