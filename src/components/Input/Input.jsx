@@ -12,11 +12,7 @@ const Input = observer(({ placeholder, filter, value }) => {
   const history = useHistory();
 
   const handleChange = (e) => {
-    store.setFilters("name", e.target.value);
-  };
-
-  const handleFocus = () => {
-    store.setIsActiveFilter(filter, true);
+    store.setFilters(filter, e.target.value);
   };
 
   const handleKeyPress = (e) => {
@@ -32,7 +28,6 @@ const Input = observer(({ placeholder, filter, value }) => {
         placeholder={placeholder}
         value={value}
         onChange={(e) => handleChange(e)}
-        onFocus={() => handleFocus()}
         onKeyPress={(e) => handleKeyPress(e)}
       />
     </S.InputRow>

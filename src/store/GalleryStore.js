@@ -19,24 +19,26 @@ class GalleryStore {
   //Фильтры
   filters = {
     name: {
+      querry: "q",
       value: "",
     },
     author: {
-      isOpen: false,
+      querry: "authorId",
       data: [],
       value: "",
     },
     location: {
-      isOpen: false,
+      querry: "&locationId",
       data: [],
       value: "",
     },
-    created: {
-      isOpen: false,
-      value: {
-        from: "",
-        before: "",
-      },
+    from: {
+      querry: "&created_gte",
+      value: "",
+    },
+    before: {
+      querry: "&created_lte",
+      value: "",
     },
   };
 
@@ -55,6 +57,7 @@ class GalleryStore {
     this.theme = value;
   }
 
+  //Установка картин
   setPaintings(data) {
     this.paintings = data;
   }
@@ -95,19 +98,7 @@ class GalleryStore {
   }
 
   ////////////////////////Методы////////////////////////
-  //Получение элементов списка авторов(author)
-  async getAuthors() {
-    const authors = await api.fetchAuthors();
-    this.setFiltersData("author", authors);
-  }
-
-  //Получение элементов списка мест(location)
-  async getLocations() {
-    const locations = await api.fetchLocations();
-    this.setFiltersData("location", locations);
-  }
-
-  //Получение количества картин на странице
+  //Получение количества картин на странице в зависимости от размера экрана
   getPaintingsOnPage() {
     const windowWidth = window.innerWidth;
 
@@ -126,17 +117,25 @@ class GalleryStore {
     }
   }
 
+  //Получение элементов списка авторов
+  async getAuthors() {
+    const authors = await api.fetchAuthors();
+
+    this.setFiltersData("author", authors);
+  }
+
+  //Получение элементов списка мест
+  async getLocations() {
+    const locations = await api.fetchLocations();
+
+    runInAction(() => {
+      this.setFiltersData("location", locations);
+    });
+  }
+
   //Получение общего количества страниц
   async getPagesCount() {
-    const data = await api.fetchPaintings(
-      "",
-      "",
-      this.filters.name.value,
-      this.filters.author.value,
-      this.filters.location.value,
-      this.filters.created.value.from,
-      this.filters.created.value.before
-    );
+    const data = await api.fetchPaintings("", "", this.filters);
     const pagesCount = Math.ceil(data.length / this.paintingsOnPage);
 
     runInAction(() => {
@@ -149,15 +148,10 @@ class GalleryStore {
     const paintings = await api.fetchPaintings(
       this.page,
       this.paintingsOnPage,
-      this.filters.name.value,
-      this.filters.author.value,
-      this.filters.location.value,
-      this.filters.created.value.from,
-      this.filters.created.value.before
+      this.filters
     );
 
     runInAction(() => {
-      console.log(paintings);
       this.setPaintings(paintings);
     });
   }
@@ -165,9 +159,12 @@ class GalleryStore {
   //Полное обновление галлереи картин
   async fullGalleryUpdate() {
     await this.getPagesCount();
-    this.setPage(1);
-    this.setSlicedPages(usePaginationSlice(this.page, this.pagesCount));
-    this.getPaintings();
+    await this.getPaintings();
+
+    runInAction(() => {
+      this.setPage(1);
+      this.setSlicedPages(usePaginationSlice(this.page, this.pagesCount));
+    });
   }
 }
 

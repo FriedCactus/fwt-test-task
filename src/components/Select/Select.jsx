@@ -4,25 +4,29 @@ import { observer } from "mobx-react-lite";
 import { GalleryContext } from "../../context";
 import { useHistory } from "react-router-dom";
 
+import Label from "./Label";
 import SimpleBar from "simplebar-react";
 import "./Simplebar.css";
 
 import * as S from "./style";
 import useClickOutside from "../../hooks/useClickOutside";
 
-const Select = observer(({ placeholder, filter, options, getFunc, isOpen }) => {
+const Select = observer(({ placeholder, filter, options, getFunc }) => {
+  const [label, setLabel] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+
   const store = useContext(GalleryContext);
   const history = useHistory();
-  const [labelText, setLabelText] = useState("");
+  const ref = useRef(null);
 
   useEffect(() => {
+    //Получение элементов списка
     getFunc();
   }, [store]);
 
   //Закрытие по клику снаружи
-  const ref = useRef(null);
   useClickOutside(ref, () => {
-    store.setIsActiveFilter(filter, false);
+    setIsOpen(false);
   });
 
   //Отмена бабблинга
@@ -32,30 +36,23 @@ const Select = observer(({ placeholder, filter, options, getFunc, isOpen }) => {
   };
 
   const handleRowClick = () => {
-    store.setIsActiveFilter(filter, !isOpen);
+    setIsOpen(!isOpen);
   };
 
   const handleListClick = (value, option) => {
     history.push("/page=1");
 
-    setLabelText(option);
+    setLabel(option);
 
     store.setFilters(filter, value);
-    store.setIsActiveFilter(filter, false);
+    setIsOpen(false);
 
     store.fullGalleryUpdate();
   };
 
   return (
     <S.SelectRow ref={ref} isOpen={isOpen} onClick={() => handleRowClick()}>
-      <S.LabelRow>
-        <S.LabelText>{labelText || placeholder}</S.LabelText>
-        <S.LabelIconRow isOpen={isOpen}>
-          <S.LabelIcon>
-            <path d="M9.67861 1.8337L5.77064 5.68539C5.34503 6.10487 4.65497 6.10487 4.22936 5.68539L0.321394 1.8337C-0.365172 1.15702 0.121082 -8.3659e-08 1.09203 0L8.90797 6.73452e-07C9.87892 7.57113e-07 10.3652 1.15702 9.67861 1.8337Z" />
-          </S.LabelIcon>
-        </S.LabelIconRow>
-      </S.LabelRow>
+      <Label label={label} placeholder={placeholder} isOpen={isOpen} />
 
       {isOpen && store.filters[filter].data && (
         <S.List onClick={stopPropaganation}>
@@ -79,14 +76,8 @@ Select.propTypes = {
   placeholder: PropTypes.string,
   filter: PropTypes.string,
   options: PropTypes.string,
+  //Функция получения элементов списка
   getFunc: PropTypes.func,
-  isOpen: PropTypes.bool,
 };
 
 export default Select;
-
-/*
-
-              <S.ListItem key={i}>{i}</S.ListItem>
-
-*/

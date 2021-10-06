@@ -1,21 +1,24 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { observer } from "mobx-react-lite";
 import { useHistory } from "react-router-dom";
 
 import { GalleryContext } from "../../context";
 
+import Label from "./Label";
 import * as S from "./style";
 import useClickOutside from "../../hooks/useClickOutside";
 
-const Years = observer(({ placeholder, filter, isOpen }) => {
+const Years = observer(({ placeholder, from, before }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const store = useContext(GalleryContext);
   const history = useHistory();
+  const ref = useRef(null);
 
   //Закрытие по клику снаружи
-  const ref = useRef(null);
   useClickOutside(ref, () => {
-    store.setIsActiveFilter(filter, false);
+    setIsOpen(false);
   });
 
   //Отмена бабблинга
@@ -25,53 +28,48 @@ const Years = observer(({ placeholder, filter, isOpen }) => {
   };
 
   const handleClick = () => {
-    store.setIsActiveFilter(filter, !isOpen);
+    setIsOpen(!isOpen);
   };
 
-  const handleChange = (e, field) => {
-    const value = { ...store.filters[filter].value, [field]: e.target.value };
-    store.setFilters(filter, value);
+  const handleChange = (e, filter) => {
+    store.setFilters(filter, e.target.value);
   };
 
   const handleKeyPress = (e) => {
     if (e.key !== "Enter") return;
 
     history.push("/page=1");
+    setIsOpen(false);
+
     store.fullGalleryUpdate();
   };
 
   return (
     <S.SelectRow ref={ref} isOpen={isOpen} onClick={() => handleClick()}>
-      <S.LabelRow>
-        <S.LabelText>
-          {store.filters[filter].value.from &&
-          store.filters[filter].value.before
-            ? `${store.filters[filter].value.from} - ${store.filters[filter].value.before}`
-            : placeholder}
-        </S.LabelText>
-
-        <S.LabelIconRow isOpen={isOpen}>
-          <S.LabelIcon>
-            <path d="M9.67861 1.8337L5.77064 5.68539C5.34503 6.10487 4.65497 6.10487 4.22936 5.68539L0.321394 1.8337C-0.365172 1.15702 0.121082 -8.3659e-08 1.09203 0L8.90797 6.73452e-07C9.87892 7.57113e-07 10.3652 1.15702 9.67861 1.8337Z" />
-          </S.LabelIcon>
-        </S.LabelIconRow>
-      </S.LabelRow>
+      <Label
+        placeholder={placeholder}
+        from={Number(store.filters[from].value)}
+        before={Number(store.filters[before].value)}
+        isOpen={isOpen}
+      />
 
       {isOpen && (
-        <S.YearsMenu isOpen={isOpen} onClick={stopPropaganation}>
+        <S.YearsMenu onClick={stopPropaganation}>
           <S.YearsInputRow>
             <S.YearsInput
               placeholder="from"
-              value={store.filters[filter].value.from}
+              value={store.filters[from].value}
               onChange={(e) => handleChange(e, "from")}
               onKeyPress={(e) => handleKeyPress(e)}
             />
           </S.YearsInputRow>
+
           <S.YearsMenuDash />
+
           <S.YearsInputRow>
             <S.YearsInput
               placeholder="before"
-              value={store.filters[filter].value.before}
+              value={store.filters[before].value}
               onChange={(e) => handleChange(e, "before")}
               onKeyPress={(e) => handleKeyPress(e)}
             />
@@ -84,8 +82,8 @@ const Years = observer(({ placeholder, filter, isOpen }) => {
 
 Years.propTypes = {
   placeholder: PropTypes.string,
-  filter: PropTypes.string,
-  isOpen: PropTypes.bool,
+  from: PropTypes.string,
+  before: PropTypes.string,
 };
 
 export default Years;

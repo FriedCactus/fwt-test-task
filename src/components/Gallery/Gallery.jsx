@@ -1,8 +1,11 @@
-import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect } from "react";
+import { observer } from "mobx-react-lite";
 import { useParams } from "react-router-dom";
 import { GalleryContext } from "../../context";
+
 import { BASE_URL } from "../../utils/api";
+
+import Label from "./Label";
 import * as S from "./style";
 
 const Gallery = observer(() => {
@@ -10,17 +13,18 @@ const Gallery = observer(() => {
   const { page } = useParams();
 
   useEffect(() => {
-    //Установка страницы при несовпадении
+    //Установка страницы из адресной строки при несовпадении
     if (page && store.page != page) {
       store.setPage(Number(page));
     }
 
+    //Первичная инициализация
     store.getPaintingsOnPage();
     store.getPagesCount();
     store.getPaintings();
   }, [store]);
 
-  //Поиск поля по его id(автор и место)
+  //Поиск поля значения по его id(для поиска места и автора)
   const findFieldById = (field, id) => {
     return store.filters[field].data.find((item) => item.id === id);
   };
@@ -29,30 +33,31 @@ const Gallery = observer(() => {
     <S.GalleryRow>
       <S.GalleryContainer>
         {store.paintings &&
-          store.paintings.map((item) => (
+          store.paintings.map((item, index) => (
             <S.ImageRow key={item.id}>
-              <S.Image src={BASE_URL + item.imageUrl} />
-              <S.ImageDesc>
+              <S.ImageLink
+                href={BASE_URL + item.imageUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <S.Image
+                  src={BASE_URL + item.imageUrl}
+                  alt={`image-${index}`}
+                />
+              </S.ImageLink>
+              <S.ImageLabel>
                 <S.ImageTitle>{item.name}</S.ImageTitle>
 
-                <S.DescRow>
-                  <S.DescTitle>Author:</S.DescTitle>
-                  <S.DescText>Rembrandt</S.DescText>
-                </S.DescRow>
-                <S.DescRow>
-                  <S.DescTitle>Created:</S.DescTitle>
-                  <S.DescText>
-                    {findFieldById("author", item.authorId).name}
-                  </S.DescText>
-                </S.DescRow>
-                <S.DescRow>
-                  <S.DescTitle>Location:</S.DescTitle>
-                  <S.DescText>
-                    {" "}
-                    {findFieldById("location", item.locationId).location}
-                  </S.DescText>
-                </S.DescRow>
-              </S.ImageDesc>
+                <Label
+                  title="Author:"
+                  text={findFieldById("author", item.authorId).name}
+                />
+                <Label title="Created:" text={item.created} />
+                <Label
+                  title="Location:"
+                  text={findFieldById("location", item.locationId).location}
+                />
+              </S.ImageLabel>
             </S.ImageRow>
           ))}
       </S.GalleryContainer>

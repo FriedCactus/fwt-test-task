@@ -2,16 +2,6 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { breakpoints } from "../GlobalStyles";
 
-// Пагинация
-export const Pagination = styled.div`
-  grid-column: span 4;
-  display: flex;
-
-  @media (${breakpoints.m}) {
-    grid-column: span 3;
-  }
-`;
-
 // Линк
 const styledLink = styled(NavLink)`
   cursor: ${(props) => (props.disabled ? "auto" : "pointer")};
@@ -59,7 +49,17 @@ const styledLink = styled(NavLink)`
   }
 `;
 
-export const ArrowLink = styled(styledLink)`
+export const Pagination = styled.div`
+  grid-column: span 4;
+  display: flex;
+
+  @media (${breakpoints.m}) {
+    grid-column: span 3;
+  }
+`;
+
+////////////////////////Стрелочные кнопки////////////////////////
+export const ArrowButton = styled(styledLink)`
   svg {
     path {
       fill: ${(props) =>
@@ -80,8 +80,6 @@ export const ArrowLink = styled(styledLink)`
   }
 `;
 
-// Кнопки-стрелки
-
 export const ArrowButtonIcon = styled.svg.attrs({
   viewBox: "0 0 9 13",
   fill: "none",
@@ -101,7 +99,7 @@ export const DoubleArrowButtonIcon = styled.svg.attrs({
 `;
 
 // Кнопки страниц
-export const NumberLink = styled(styledLink)`
+export const NumberButton = styled(styledLink)`
   &.active {
     background-color: ${(props) => props.theme.secondaryColor};
     color: ${(props) => props.theme.mainColor};

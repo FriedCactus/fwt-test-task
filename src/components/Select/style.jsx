@@ -20,8 +20,7 @@ export const SelectRow = styled.div`
   }
 `;
 
-//Label
-
+////////////////////////Лэйбл////////////////////////
 export const LabelRow = styled.div`
   cursor: pointer;
   user-select: none;
@@ -66,8 +65,7 @@ export const LabelIcon = styled.svg.attrs({
   transition: fill 0.3s;
 `;
 
-// List
-
+////////////////////////Список////////////////////////
 export const List = styled.ul`
   box-sizing: border-box;
   cursor: pointer;

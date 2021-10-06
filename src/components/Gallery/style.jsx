@@ -44,12 +44,15 @@ export const ImageRow = styled.div`
   }
 `;
 
+export const ImageLink = styled.a``;
+
 export const Image = styled.img`
   width: 100%;
   height: 100%;
 `;
 
-export const ImageDesc = styled.div`
+////////////////////////Лейбл////////////////////////
+export const ImageLabel = styled.div`
   cursor: pointer;
   position: absolute;
   top: 100%;
@@ -84,7 +87,7 @@ export const ImageTitle = styled.h3`
   }
 `;
 
-export const DescRow = styled.div`
+export const LabelRow = styled.div`
   display: flex;
   align-items: center;
   height: 20px;
@@ -98,11 +101,11 @@ export const DescRow = styled.div`
   }
 `;
 
-export const DescTitle = styled.p`
+export const LabelTitle = styled.p`
   margin-right: 5px;
   font-weight: 500;
 `;
 
-export const DescText = styled.p`
+export const LabelText = styled.p`
   font-weight: 300;
 `;

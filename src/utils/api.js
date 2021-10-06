@@ -1,27 +1,31 @@
+import { toJS } from "mobx";
+
 export const BASE_URL = "https://test-front.framework.team";
 
 export const fetchAuthors = async () => {
-  const data = await fetch(`${BASE_URL}/authors`);
-
-  return await data.json();
+  try {
+    const data = await fetch(`${BASE_URL}/authors`);
+    return await data.json();
+  } catch (e) {
+    alert("Произошла ошибка при загрузке списка авторов");
+  }
 };
 
 export const fetchLocations = async () => {
-  const data = await fetch(`${BASE_URL}/locations`);
-
-  return await data.json();
+  try {
+    const data = await fetch(`${BASE_URL}/locations`);
+    return await data.json();
+  } catch (e) {
+    alert("Произошла ошибка при загрузке списка мест");
+  }
 };
 
-export const fetchPaintings = async (
-  page,
-  perPage,
-  search,
-  author,
-  location,
-  from,
-  before
-) => {
+export const fetchPaintings = async (page, perPage, ...filters) => {
   let filterString = "";
+
+  let filtersObj = filters[0];
+  let filtersKeys;
+
   if (page) {
     filterString += `_page=${page}`;
   }
@@ -30,27 +34,21 @@ export const fetchPaintings = async (
     filterString += `&_limit=${perPage}`;
   }
 
-  if (search) {
-    filterString += `&q=${search}`;
+  if (filters.length) {
+    filtersKeys = Object.keys(filtersObj);
+
+    filtersKeys.forEach((key) => {
+      if (filtersObj[key].value && filtersObj[key].querry) {
+        filterString += `&${filtersObj[key].querry}=${filtersObj[key].value}`;
+      }
+    });
   }
 
-  if (author) {
-    filterString += `&authorId=${author}`;
+  try {
+    const data = await fetch(`${BASE_URL}/paintings?${filterString}`);
+
+    return await data.json();
+  } catch (e) {
+    alert("Произошла ошибка при загрузке галлереи");
   }
-
-  if (location) {
-    filterString += `&locationId=${location}`;
-  }
-
-  if (from) {
-    filterString += `&created_gte=${from}`;
-  }
-
-  if (before) {
-    filterString += `&created_lte=${before}`;
-  }
-
-  const data = await fetch(`${BASE_URL}/paintings?${filterString}`);
-
-  return await data.json();
 };

@@ -71,7 +71,7 @@ export const YearsMenu = styled.div`
   top: 100%;
   left: 0;
 
-  display: ${(props) => (props.isOpen ? "flex" : "none")};
+  display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px 15px;

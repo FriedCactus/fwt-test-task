@@ -23,20 +23,14 @@ const Filters = observer(() => {
           filter="author"
           options="name"
           getFunc={() => store.getAuthors()}
-          isOpen={store.filters.author.isOpen}
         />
         <Select
           placeholder="Location"
           filter="location"
           options="location"
           getFunc={() => store.getLocations()}
-          isOpen={store.filters.location.isOpen}
         />
-        <Years
-          placeholder="Created"
-          filter="created"
-          isOpen={store.filters.created.isOpen}
-        />
+        <Years placeholder="Created" from="from" before="before" />
       </Container>
     </S.Filters>
   );
