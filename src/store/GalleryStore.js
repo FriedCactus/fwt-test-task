@@ -1,4 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
+
+import usePaginationSlice from "../hooks/usePagintaionSlice";
+
 import * as api from "../utils/api";
 
 class GalleryStore {
@@ -16,7 +19,6 @@ class GalleryStore {
   //Фильтры
   filters = {
     name: {
-      isOpen: false,
       value: "",
     },
     author: {
@@ -126,10 +128,17 @@ class GalleryStore {
 
   //Получение общего количества страниц
   async getPagesCount() {
-    const data = await api.fetchPaintings("", "", this.filters.name.value);
+    const data = await api.fetchPaintings(
+      "",
+      "",
+      this.filters.name.value,
+      this.filters.author.value,
+      this.filters.location.value
+    );
     const pagesCount = Math.ceil(data.length / this.paintingsOnPage);
 
     runInAction(() => {
+      console.log(pagesCount);
       this.setPagesCount(pagesCount);
     });
   }
@@ -139,12 +148,23 @@ class GalleryStore {
     const paintings = await api.fetchPaintings(
       this.page,
       this.paintingsOnPage,
-      this.filters.name.value
+      this.filters.name.value,
+      this.filters.author.value,
+      this.filters.location.value
     );
 
     runInAction(() => {
+      console.log(paintings);
       this.setPaintings(paintings);
     });
+  }
+
+  //Полное обновление галлереи картин
+  async fullGalleryUpdate() {
+    await this.getPagesCount();
+    this.setPage(1);
+    this.setSlicedPages(usePaginationSlice(this.page, this.pagesCount));
+    this.getPaintings();
   }
 }
 

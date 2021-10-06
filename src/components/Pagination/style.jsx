@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { breakpoints } from "../GlobalStyles";
 
 // Пагинация
@@ -13,7 +13,7 @@ export const Pagination = styled.div`
 `;
 
 // Линк
-export const StyledLink = styled(Link)`
+const styledLink = styled(NavLink)`
   cursor: ${(props) => (props.disabled ? "auto" : "pointer")};
   text-decoration: none;
 
@@ -59,7 +59,7 @@ export const StyledLink = styled(Link)`
   }
 `;
 
-export const ArrowLink = styled(StyledLink)`
+export const ArrowLink = styled(styledLink)`
   svg {
     path {
       fill: ${(props) =>
@@ -101,8 +101,9 @@ export const DoubleArrowButtonIcon = styled.svg.attrs({
 `;
 
 // Кнопки страниц
-export const NumberLink = styled(StyledLink)`
-  background-color: ${(props) =>
-    props.active ? props.theme.secondaryColor : ""};
-  color: ${(props) => (props.active ? props.theme.mainColor : "")};
+export const NumberLink = styled(styledLink)`
+  &.active {
+    background-color: ${(props) => props.theme.secondaryColor};
+    color: ${(props) => props.theme.mainColor};
+  }
 `;

@@ -1,27 +1,16 @@
 import PropTypes from "prop-types";
 
 const usePaginationSlice = (current, amount) => {
-  let arr = [];
+  let arr = Array.from({ length: amount }, (_, i) => i + 1);
 
-  if (amount <= 3) {
-    for (let i = 1; i <= amount; i++) {
-      arr.push(i);
-    }
-  } else if (current === 1) {
-    for (let i = 1; i <= current + 2; i++) {
-      arr.push(i);
-    }
-  } else if (amount - current <= 1) {
-    for (let i = amount - 2; i <= amount; i++) {
-      arr.push(i);
-    }
-  } else {
-    for (let i = current - 1; i <= current + 1; i++) {
-      arr.push(i);
-    }
-  }
+  if (amount <= 1) return [];
+  if (current <= 1) return arr.slice(0, 3);
+  if (current >= amount) return arr.slice(-3);
 
-  return arr;
+  const start = current - 2;
+  const end = current + 1;
+
+  return arr.slice(start, end);
 };
 
 usePaginationSlice.propTypes = {

@@ -1,23 +1,15 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
+
 import { observer } from "mobx-react-lite";
-import { GalleryContext } from "../../context";
-import * as S from "./style";
-import usePaginationSlice from "../../hooks/usePagintaionSlice";
 import { useHistory } from "react-router";
+import { GalleryContext } from "../../context";
+
+import * as S from "./style";
 
 const Input = observer(({ placeholder, filter, value }) => {
   const store = useContext(GalleryContext);
   const history = useHistory();
-
-  const updateGallery = async () => {
-    await store.getPagesCount();
-    store.setPage(1);
-    store.setSlicedPages(usePaginationSlice(store.page, store.pagesCount));
-    store.getPaintings();
-
-    history.push("/");
-  };
 
   const handleChange = (e) => {
     store.setFilters("name", e.target.value);
@@ -27,20 +19,11 @@ const Input = observer(({ placeholder, filter, value }) => {
     store.setIsActiveFilter(filter, true);
   };
 
-  const handleBlur = () => {
-    if (!store.filters[filter].isOpen) return;
-
-    store.setIsActiveFilter(filter, false);
-
-    updateGallery();
-  };
-
   const handleKeyPress = (e) => {
     if (e.key !== "Enter") return;
 
-    store.setIsActiveFilter(filter, false);
-
-    updateGallery();
+    history.push("/page=1");
+    store.fullGalleryUpdate();
   };
 
   return (
@@ -50,7 +33,6 @@ const Input = observer(({ placeholder, filter, value }) => {
         value={value}
         onChange={(e) => handleChange(e)}
         onFocus={() => handleFocus()}
-        onBlur={() => handleBlur()}
         onKeyPress={(e) => handleKeyPress(e)}
       />
     </S.InputRow>

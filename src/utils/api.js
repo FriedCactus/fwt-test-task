@@ -12,7 +12,13 @@ export const fetchLocations = async () => {
   return await data.json();
 };
 
-export const fetchPaintings = async (page, perPage, search) => {
+export const fetchPaintings = async (
+  page,
+  perPage,
+  search,
+  author,
+  location
+) => {
   let filterString = "";
   if (page) {
     filterString += `_page=${page}`;
@@ -24,6 +30,14 @@ export const fetchPaintings = async (page, perPage, search) => {
 
   if (search) {
     filterString += `&q=${search}`;
+  }
+
+  if (author) {
+    filterString += `&authorId=${author}`;
+  }
+
+  if (location) {
+    filterString += `&locationId=${location}`;
   }
 
   const data = await fetch(`${BASE_URL}/paintings?${filterString}`);

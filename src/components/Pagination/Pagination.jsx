@@ -9,6 +9,7 @@ import { GalleryContext } from "../../context";
 
 const Pagination = observer(() => {
   const store = useContext(GalleryContext);
+
   useEffect(() => {
     store.setSlicedPages(usePaginationSlice(store.page, store.pagesCount));
   }, [store]);
@@ -55,9 +56,9 @@ const Pagination = observer(() => {
         {store.slicedPages.map((item, index) => (
           <S.NumberLink
             key={index}
-            active={store.page === item}
             onClick={(e) => handleClick(e, item)}
             to={"/page=" + item}
+            activeClassName="active"
           >
             {item}
           </S.NumberLink>
