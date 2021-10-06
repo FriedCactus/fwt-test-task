@@ -18,7 +18,7 @@ const Input = observer(({ placeholder, filter, value }) => {
   const handleKeyPress = (e) => {
     if (e.key !== "Enter") return;
 
-    history.push("/page=1");
+    history.push("/fwt-test-task/page=1");
     store.fullGalleryUpdate();
   };
 

@@ -15,7 +15,7 @@ const Header = observer(() => {
     <S.Header>
       <Container>
         <S.LogoRow>
-          <S.Logo src="/images/logo.svg" />
+          <S.Logo src="/fwt-test-task/images/logo.svg" />
         </S.LogoRow>
 
         <S.ThemeRow onClick={handleThemeChange}>

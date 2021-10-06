@@ -44,7 +44,7 @@ const Pagination = observer(() => {
           <S.NumberButton
             key={index}
             onClick={(e) => handleClick(e, item)}
-            to={"/page=" + item}
+            to={"/fwt-test-task/page=" + item}
             activeClassName="active"
           >
             {item}

@@ -40,7 +40,7 @@ const Select = observer(({ placeholder, filter, options, getFunc }) => {
   };
 
   const handleListClick = (value, option) => {
-    history.push("/page=1");
+    history.push("/fwt-test-task/page=1");
 
     setLabel(option);
 

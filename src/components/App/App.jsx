@@ -16,11 +16,11 @@ const App = observer(() => {
       <Header />
       <Filters />
       <Switch>
-        <Route path="/page=:page">
+        <Route path="/fwt-test-task/page=:page">
           <Gallery />
         </Route>
         <Route exact path="/">
-          <Redirect to="/page=1" />
+          <Redirect to="/fwt-test-task/page=1" />
         </Route>
       </Switch>
       {store.pagesCount > 1 && <Pagination />}
