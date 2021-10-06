@@ -158,11 +158,12 @@ class GalleryStore {
 
   //Полное обновление галлереи картин
   async fullGalleryUpdate() {
+    this.setPage(1);
+
     await this.getPagesCount();
     await this.getPaintings();
 
     runInAction(() => {
-      this.setPage(1);
       this.setSlicedPages(usePaginationSlice(this.page, this.pagesCount));
     });
   }

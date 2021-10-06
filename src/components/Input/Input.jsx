@@ -19,6 +19,7 @@ const Input = observer(({ placeholder, filter, value }) => {
     if (e.key !== "Enter") return;
 
     history.push("/fwt-test-task");
+
     store.fullGalleryUpdate();
   };
 
