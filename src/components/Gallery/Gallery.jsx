@@ -45,7 +45,7 @@ const Gallery = observer(() => {
                   alt={`image-${index}`}
                 />
               </S.ImageLink>
-              <S.ImageLabel>
+              <S.ImageLabelRow>
                 <S.ImageTitle>{item.name}</S.ImageTitle>
 
                 <Label
@@ -57,7 +57,7 @@ const Gallery = observer(() => {
                   title="Location:"
                   text={findFieldById("location", item.locationId).location}
                 />
-              </S.ImageLabel>
+              </S.ImageLabelRow>
             </S.ImageRow>
           ))}
       </S.GalleryContainer>

@@ -52,7 +52,7 @@ export const Image = styled.img`
 `;
 
 ////////////////////////Лейбл////////////////////////
-export const ImageLabel = styled.div`
+export const ImageLabelRow = styled.div`
   cursor: pointer;
   position: absolute;
   top: 100%;
