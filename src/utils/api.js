@@ -1,5 +1,3 @@
-import { toJS } from "mobx";
-
 export const BASE_URL = "https://test-front.framework.team";
 
 export const fetchAuthors = async () => {
